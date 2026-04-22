@@ -1,0 +1,14 @@
+import React from 'react';
+
+const Footer = () => {
+  return (
+    <footer className="bg-gray-800 text-white py-4 mt-8">
+      <div className="container mx-auto text-center">
+        <p>&copy; 2025 Kwanat. All rights reserved.</p>
+        <p className="text-sm text-gray-400">Discover and share hidden gems around you.</p>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

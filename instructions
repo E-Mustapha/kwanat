@@ -1,0 +1,234 @@
+# Kwanat Project Instructions
+
+## Project Overview
+Kwanat is a modern web application designed to help users share and explore hidden gems around them. The project is structured into separate `frontend` and `backend` folders for better organization and maintainability.
+
+## Folder Structure
+```
+Kwanat/
+  backend/                # Backend code (Express.js, SQLite3)
+    controllers/          # Controllers for handling business logic
+    models/               # Models for database interactions
+    routes/               # Routes for API endpoints
+    database/             # SQLite database and related files
+      kwanat.db           # SQLite database file
+    server.js             # Main server file
+  frontend/               # Frontend code (React, Vite)
+    src/                  # React source files
+      components/         # Reusable React components
+      pages/              # Page-level components
+      styles.css          # Global styles
+    index.html            # Entry point for the React app
+    package.json          # Frontend dependencies
+    vite.config.js        # Vite configuration
+```
+
+## Backend (Express.js)
+- **Design Pattern**: The backend follows the MVC (Model-View-Controller) design pattern.
+- **Database**: SQLite3 is used for data storage. The database file (`kwanat.db`) is located in the `backend/database/` folder.
+- **File Uploads**: File uploads (images/videos) are handled using `multer`. Uploaded files are stored in a local `uploads/` folder.
+- **API Endpoints**:
+  - `GET /kwanat`: Fetch all Kwanat.
+  - `POST /kwanat`: Add a new Kwan, including file uploads.
+
+## Frontend (React)
+- **Framework**: React is used for building the user interface.
+- **Styling**: Tailwind CSS is used for responsive and modern design.
+- **Features**:
+  - **Home Page**: Displays a list of Kwanat fetched from the backend.
+  - **Add Kwan Page**: Allows users to add a new Kwan. The form includes fields for title, description, and location. File uploads are handled automatically when the form is submitted.
+  - **Responsive Design**: The layout adapts to different screen sizes.
+  - **Button States**: Buttons have a `pointer` cursor on hover and are disabled while the `POST` method is working in the background.
+
+## Changes Made
+1. **Restructured Project**:
+   - Separated frontend and backend into distinct folders.
+   - Moved the SQLite database file (`kwanat.db`) to `backend/database/`.
+2. **Implemented MVC Design Pattern**:
+   - Created `controllers/`, `models/`, and `routes/` folders in the backend.
+   - Moved business logic to controllers and database interactions to models.
+3. **File Uploads**:
+   - Integrated `multer` for handling file uploads.
+   - Stored uploaded files in a local `uploads/` folder.
+   - Updated the `POST /kwanat` endpoint to handle file uploads before storing Kwan data.
+4. **Frontend Enhancements**:
+   - Removed the upload button from the Add Kwan page.
+   - Added a `pointer` cursor on hover over buttons.
+   - Disabled the submit button while the `POST` method is working in the background.
+5. **Environment Variables**:
+   - Removed Cloudinary setup and replaced it with local file uploads.
+   - Ensured sensitive information is not hardcoded.
+
+## How to Run
+### Backend
+1. Navigate to the `backend/` folder.
+2. Create a `.env` file with the following variables:
+   ```
+   PORT=5000
+   DATABASE_PATH=./database/kwanat.db
+   UPLOADS_DIR=./uploads
+   ```
+3. Install dependencies: `npm install`
+4. Initialize the database: `node database/initDatabase.js`
+5. Start the server: `node server.js`
+6. The server will run on `http://localhost:5000`.
+
+### Frontend
+1. Navigate to the `frontend/` folder.
+2. Install dependencies: `npm install`
+3. Start the development server: `npm run dev`
+4. The app will run on `http://localhost:3000`.
+
+## Testing
+- Backend: Run `npm test` in the `backend/` folder.
+- Frontend: Run `npm test` in the `frontend/` folder.
+- End-to-End: Use Cypress for testing the app workflow.
+
+## Deployment
+### Backend
+1. Use a process manager like PM2 to run the server in production.
+2. Configure the server to serve static files from the `frontend/dist` folder.
+3. Set up a reverse proxy (e.g., Nginx) to route requests to the backend.
+
+### Frontend
+1. Build the frontend: `npm run build`.
+2. Deploy the `dist` folder to a static hosting service (e.g., Netlify, Vercel).
+
+## Code Quality
+- Use ESLint and Prettier for consistent formatting and linting.
+
+## Localization
+- Plan for localization using libraries like `react-i18next` to support English, Darija, and French.
+
+## Security
+- Validate and sanitize user inputs on both frontend and backend.
+- Use HTTPS in production.
+- Store sensitive data securely.
+
+## API Documentation
+- Document the API endpoints using tools like Swagger or Postman.
+
+## Future Improvements
+- Add user authentication for saving Kwanat to user profiles.
+- Implement search and filter functionality on the Home page.
+- Optimize image and video uploads for performance.
+- Add unit and integration tests for both frontend and backend.
+
+📍 Kwanat – Discover & Share Hidden Gems
+Kwanat (from Darija, meaning "Spots" or "Good Places to Visit") is a modern, minimalist web application designed to help users share and explore great places around them. Whether it's a cozy café, a scenic lookout, or a hidden beach, Kwanat makes it easy to document, showcase, and find unique locations worth visiting.
+
+🧠 Key Features
+➕ Add a Kwan: Users can submit a new location (Kwan) by filling out a form that includes:
+
+Title & description (with optional transportation tips)
+
+Uploading images or videos (drag-and-drop supported)
+
+Selecting the location on an interactive map
+
+🗺️ Map Integration: Each Kwan is geolocated using an embedded map (OpenStreetMap via Leaflet.js) to help users visualize and navigate.
+
+🖼️ Media Upload & Preview: Users can attach visual content (photos/videos) to better represent each spot, with live previews before submitting. File size is limited to 5MB, and supported formats are jpg, jpeg, png, and mp4.
+
+🗂️ Responsive Grid/List View: All Kwanat are displayed in a clean, mobile-friendly layout with cards showing key information and visuals.
+
+📱 Mobile-First UI/UX: Designed with modern, responsive, and accessible UI principles using Tailwind CSS.
+
+🧳 Transport-Friendly: Descriptions can include instructions on how to get to the spot using local transportation (e.g., tram, taxi, walking).
+
+🗃️ Local-First Storage: SQLite (via sql.js) handles data persistence, making the app lightweight and offline-friendly (ideal for browser-based use).
+
+🛠️ Tech Stack
+Frontend: React + Tailwind CSS
+
+Database: SQLite (using sql.js for in-browser usage)
+
+Map Provider: OpenStreetMap (via Leaflet.js)
+
+Architecture: Modular component design with clean separation of logic, views, and state
+
+🎯 Target Users
+Locals who want to share their favorite hidden spots
+
+Tourists looking for authentic, off-the-beaten-path experiences
+
+Content creators curating city guides or local tips
+
+Community-driven explorers and travel enthusiasts
+
+# | User Story | Priority | Notes
+1 | As a user, I want to add a new Kwan with a title, description, images/videos, and location | ⭐⭐⭐⭐⭐ | Core feature
+2 | As a user, I want to specify transportation options in the description | ⭐⭐⭐⭐ | Optional field, but very useful
+3 | As a visitor, I want to browse all submitted Kwanat in a grid or list view | ⭐⭐⭐⭐⭐ | Key for discoverability
+4 | As a visitor, I want to see each Kwan's location on an interactive map | ⭐⭐⭐⭐ | Needs API integration
+5 | As a user, I want to upload photos or videos to visually showcase the Kwan | ⭐⭐⭐⭐⭐ | Must have drag-and-drop support (nice to have)
+6 | As a user, I want to preview the uploaded media before submitting the form | ⭐⭐⭐⭐ | UX improvement
+7 | As a user, I want to save a Kwan to my profile (future feature) | ⭐⭐ | For V2, maybe add login system
+8 | As a visitor, I want to search/filter Kwanat by location, tag, or accessibility | ⭐⭐⭐ | Can be added progressively
+9 | As a mobile user, I want the design to adapt to my screen size | ⭐⭐⭐⭐⭐ | Responsive design required
+
+{
+  "feature": "Add Kwan Form",
+  "description": "Build a responsive form using Tailwind CSS. Fields: title, description (with transport instructions), media upload (images/videos), and a map picker to select location. Add drag-and-drop support for media upload and preview selected files."
+}
+{
+  "feature": "Media Upload with Preview",
+  "description": "Support drag-and-drop image/video uploads with preview before submission. Use FileReader in React to display thumbnails. Limit file size and types. Tailwind for layout/styling."
+}
+{
+  "feature": "Location Picker via Map",
+  "description": "Integrate a map component (OpenStreetMap via Leaflet.js). Users can select a point on the map to save latitude/longitude. Show the selected location on a static map in the Kwan detail view."
+}
+{
+  "feature": "Kwanat List/Grid View",
+  "description": "Show a responsive list or grid of Kwan cards. Each card should show the title, a featured image, and a short description. Tailwind CSS grid system. Cards should be clickable to show full details."
+}
+{
+  "feature": "Kwan Detail View",
+  "description": "Show a detailed view with full description, embedded map (read-only), full media gallery, and transport instructions. Style with Tailwind for clean, minimal layout. Add a back button or breadcrumb navigation."
+}
+{
+  "feature": "Local SQLite Integration",
+  "description": "Use SQLite as the local database for storing Kwanat. Each record should include ID, title, description, media paths, lat/lng coordinates. Use a lightweight wrapper like sql.js for in-browser usage."
+}
+{
+  "feature": "Responsive Layout",
+  "description": "Ensure all views are mobile-friendly. Use Tailwind's responsive utilities (`sm`, `md`, `lg`) to optimize layout and spacing. Maintain good touch targets, text sizing, and contrast ratios for accessibility."
+}
+{
+  "feature": "Accessibility Features",
+  "description": "Implement ARIA roles and properties for form elements, buttons, and map. Ensure keyboard navigation is possible. Use semantic HTML5 elements. Test with screen readers."
+}
+{
+  "feature": "Search/Filter Functionality",
+  "description": "Add a search bar to filter Kwanat by title or tags. Use a dropdown or checkbox for filtering by location or accessibility features. Implement client-side filtering for performance."
+}
+{
+  "feature": "User Authentication (Future Feature)",
+  "description": "Plan for user authentication to save Kwanat to user profiles. Use JWT or OAuth for secure login. Store user data in SQLite with a foreign key relationship to Kwanat."
+}
+{
+  "feature": "Testing and Debugging",
+  "description": "Write unit tests for components using Jest and React Testing Library. Use Cypress for end-to-end testing of the Kwan submission and viewing process. Ensure all features are covered."
+}
+
+🧩 Tips for Clean Code and Performance
+Use components for form fields, media preview, map integration.
+
+Lazy load images/videos in the list view for performance.
+
+Add validations (required fields, media size limits).
+
+Use environment variables for map API keys.
+
+Plan for localization (English/Darija/French).
+
+Folder Structure : 
+/src
+  /components        # Reusable components (Card, FormField, MapPicker, MediaUploader)
+  /pages             # Page-level components (Home, AddKwan, KwanDetails)
+  /services          # DB interaction, media handling
+  /hooks             # Custom React hooks (e.g., useSQLite, useMediaPreview)
+  /utils             # Utility functions/helpers
+  /styles            # Optional custom styles
+  /db                # SQLite schema and setup
